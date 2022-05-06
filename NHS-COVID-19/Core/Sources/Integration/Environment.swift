@@ -37,23 +37,15 @@ public extension Environment {
         let appInfo = AppInfo(for: .main)
         let userAgentHeaderValue = "p=iOS,o=\(Version.iOSVersion.readableRepresentation),v=\(appInfo.version.readableRepresentation),b=\(appInfo.buildNumber)"
 
-        let copyServices: Environment.CopyServices?
-        if let project = configuration.copyServices?.project,
-            let token = configuration.copyServices?.token {
-            copyServices = Environment.CopyServices(project: project, token: token)
-        } else {
-            copyServices = nil
-        }
-
         return Environment(
             distributionClient: AppHTTPClient(for: configuration.distributionRemote, kind: .distribution),
             apiClient: AppHTTPClient(for: configuration.submissionRemote, kind: .submission(userAgentHeaderValue: userAgentHeaderValue)),
             iTunesClient: URLSessionHTTPClient(remote: HTTPRemote.iTunes),
-            venueDecoder: VenueDecoder(for: .qrCodes),
+            venueDecoder: MockVenueDecoder(),
             backgroundTaskIdentifier: BackgroundTaskIdentifiers(in: .main).exposureNotification!,
             identifier: configuration.identifier,
             appInfo: appInfo,
-            copyServices: copyServices
+            copyServices: nil
         )
     }
 
@@ -62,7 +54,7 @@ public extension Environment {
             distributionClient: client,
             apiClient: client,
             iTunesClient: client,
-            venueDecoder: VenueDecoder(for: .qrCodes),
+            venueDecoder: MockVenueDecoder(),
             backgroundTaskIdentifier: BackgroundTaskIdentifiers(in: .main).exposureNotification!,
             identifier: "mock",
             appInfo: AppInfo(for: .main),
@@ -78,13 +70,17 @@ private extension HTTPRemote {
 
 }
 
-private extension VenueDecoder {
-
-    init(for signatureKey: SigningKeyInfo) {
-        self.init(
-            keyId: signatureKey.id,
-            key: try! P256.Signing.PublicKey(pemRepresentationCompatibility: signatureKey.pemRepresentation)
-        )
+private class MockVenueDecoder: VenueDecoding {
+    
+    public func decode(_ /* payload */: String) throws -> [Venue] {
+        [
+            Venue(
+                id: "abcd",
+                organisation: "Example Inc.",
+                postcode: "NW11 1AA"
+            )
+        ]
+        
     }
-
+    
 }
