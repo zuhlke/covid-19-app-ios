@@ -17,7 +17,6 @@ public struct AppHTTPClient: HTTPClient {
     }
 
     private let client: HTTPClient
-    private let responseVerifier: HTTPResponseVerifying
 
     public init(for remote: Remote, kind: RemoteKind) {
 
@@ -26,7 +25,6 @@ public struct AppHTTPClient: HTTPClient {
         switch kind {
         case .distribution:
             httpRemote = HTTPRemote(for: remote)
-            responseVerifier = HTTPResponseTimestampedSignatureVerifier(for: remote)
             client = URLSessionHTTPClient(
                 remote: httpRemote,
                 session: URLSession(for: remote)
@@ -36,7 +34,6 @@ public struct AppHTTPClient: HTTPClient {
                 for: remote,
                 additionalHeaders: ["User-Agent": userAgentHeaderValue]
             )
-            responseVerifier = HTTPResponseRequestBoundSignatureVerifier(for: remote)
             client = HTTPObfuscationClient(
                 remote: httpRemote,
                 session: URLSession(for: remote)
@@ -45,10 +42,7 @@ public struct AppHTTPClient: HTTPClient {
     }
 
     public func perform(_ request: HTTPRequest) -> AnyPublisher<HTTPResponse, HTTPRequestError> {
-        let preparedRequest = responseVerifier.prepare(request)
-        return client.perform(preparedRequest)
-            .flatMap { self.responseVerifier.verify($0, for: preparedRequest).publisher }
-            .eraseToAnyPublisher()
+        client.perform(request)
     }
 
 }
@@ -70,24 +64,6 @@ private extension URLSession {
 
     convenience init(for remote: Remote) {
         self.init(trustValidator: PublicKeyValidator(pins: remote.publicKeyPins))
-    }
-
-}
-
-private extension HTTPResponseRequestBoundSignatureVerifier {
-
-    init(for remote: Remote) {
-        let key = try! P256.Signing.PublicKey(pemRepresentationCompatibility: remote.signatureKey.pemRepresentation)
-        self.init(key: key, id: remote.signatureKey.id)
-    }
-
-}
-
-private extension HTTPResponseTimestampedSignatureVerifier {
-
-    init(for remote: Remote) {
-        let key = try! P256.Signing.PublicKey(pemRepresentationCompatibility: remote.signatureKey.pemRepresentation)
-        self.init(key: key, id: remote.signatureKey.id)
     }
 
 }
