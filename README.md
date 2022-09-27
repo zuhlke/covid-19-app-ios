@@ -2,9 +2,21 @@
 
 This is a fork of the [open source repo](https://github.com/nihp-public/covid-19-app-ios-ag-public) for the NHS COVID-19 iOS app.
 
+## Why the fork?
+
 The official repository has a few minor compilation issues in the open source version as some resources (e.g. to include URLs and other configuration).
 
 This repo resolves those issues. All you need is the right version of Xcode (mentioned below) and you can test and run all targets for the simulator.
+
+## Where to start?
+
+Here are a few notes to help you get started.
+
+* Due to a bug in Xcode 14, Swift Package Managers don’t resolve correctly when openning a fresh project. If you get an error after openning the project, just close the project and re-open it. The dependencies then should resolve correctly.
+* `ExposureNotification` framework does not run on the simulator, so if you run the main (`NHS-COVID-19`) app you may be disappointed. Instead, select `NHS-COVID-19-Internal` scheme.
+* The internal (or “Scenarios”) app is like an app-selector. When it launches, you can see various scenarios to choose from. If you’re just browsing the app functionality, the Mock environment scenario is a good place to start.
+* After selecting a scenario, the app remembers your choice, even after a re-launch. This is to make the app behave like the production app as much as possible. If you want to return to the scenarios list, press and hold on the app icon and select “Reset Scenario”.
+* Press and holding app icon also gives you other handy options, like access to a view to see logs or configure the mock endpoint.
 
 ## Disclaimer
 
