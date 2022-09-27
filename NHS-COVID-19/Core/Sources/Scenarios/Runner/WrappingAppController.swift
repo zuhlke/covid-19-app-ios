@@ -81,7 +81,7 @@ class WrappingAppController: AppController {
         }
     }
 
-    func performBackgroundTask(task: BackgroundTask) {
+    func performBackgroundTask(task: Domain.BackgroundTask) {
         content?.performBackgroundTask(task: task)
     }
 

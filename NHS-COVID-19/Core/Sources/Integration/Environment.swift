@@ -71,7 +71,7 @@ private extension HTTPRemote {
 }
 
 private class MockVenueDecoder: VenueDecoding {
-    
+
     public func decode(_ /* payload */: String) throws -> [Venue] {
         [
             Venue(
@@ -80,7 +80,7 @@ private class MockVenueDecoder: VenueDecoding {
                 postcode: "NW11 1AA"
             )
         ]
-        
+
     }
-    
+
 }
