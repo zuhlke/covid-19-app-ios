@@ -6,7 +6,7 @@ let package = Package(
     name: "Core",
     defaultLocalization: "en",
     platforms: [
-        .iOS("13.5"),
+        .iOS("15.0"),
     ],
     products: [
         .library(
@@ -49,6 +49,7 @@ let package = Package(
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
         .package(name: "RiskScore", url: "https://github.com/nihp-public/riskscore-swift-public.git", .upToNextMajor(from: "3.2.1")),
         .package(name: "Lokalise", url: "https://github.com/lokalise/lokalise-ios-framework", from: "0.9.12"),
+        .package(name: "BonjourServices", url: "https://github.com/zuhlke/RemoteLogger", .branch("main")),
     ],
     targets: [
         .target(
@@ -104,6 +105,7 @@ let package = Package(
                 "Integration",
                 "SwiftProtobuf",
                 "Lokalise",
+                "BonjourServices",
                 .product(name: "ScenariosConfiguration", package: "AppConfiguration"),
             ]
         ),

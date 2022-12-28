@@ -38,6 +38,15 @@
         }
       },
       {
+        "package": "BonjourServices",
+        "repositoryURL": "https://github.com/zuhlke/RemoteLogger",
+        "state": {
+          "branch": "main",
+          "revision": "f7c2f029117f07f1353697a3aee2f0c271e75a6f",
+          "version": null
+        }
+      },
+      {
         "package": "RiskScore",
         "repositoryURL": "https://github.com/nihp-public/riskscore-swift-public.git",
         "state": {

@@ -2039,6 +2039,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89AD4843246195750013EC66 /* NHS-COVID-19.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -2046,6 +2047,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89AD4843246195750013EC66 /* NHS-COVID-19.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};
@@ -2053,6 +2055,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89AD4850246198300013EC66 /* NHS-COVID-19-Internal.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -2060,6 +2063,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89AD4850246198300013EC66 /* NHS-COVID-19-Internal.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Release;
 		};

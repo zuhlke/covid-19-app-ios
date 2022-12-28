@@ -4,6 +4,7 @@
 
 import Common
 import Foundation
+import BonjourServices
 import Logging
 
 public class LoggingManager {
@@ -21,7 +22,12 @@ public class LoggingManager {
     }
 
     public func makeLogHandler(label: String) -> LogHandler {
-        ForwardingLogHandler(label: label, send: log)
+        let streamHandler = ForwardingLogHandler(label: label, send: log)
+
+        var remoteHandler = RemoteLogOutputStream.logger(label: label, remoteLoggerClient: RemoteLoggerClient.shared)
+        remoteHandler.logLevel = .trace
+
+        return MultiplexLogHandler([streamHandler, remoteHandler])
     }
 
     private func log(_ event: LogEvent) {
