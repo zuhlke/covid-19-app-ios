@@ -76,43 +76,43 @@ class LocalExperimentActions {
     }
 
     private func detectExposureForExperiment() {
-//        let url = URL(string: "https://example.com/path/\(device.experimentName)-collected-keys.json")!
-//        let cancellable = URLSession.shared
-//            .dataTaskPublisher(for: url)
-//            .tryMap { data, response in try JSONDecoder().decode(CollectedExperimentKeysPayload.self, from: data) }
-////            .print("Server response")
-//            .flatMap { collectedKeys in
-//                Publishers.Sequence(sequence: collectedKeys.devices)
-//            }
-//            .flatMap { self.manager.exposure(to: $0, configuration: ENExposureConfiguration()) }
-//            .print("Exposure")
-//            .collect()
-//            .map { CollectedExperimentResultsPayload(devices: $0) }
-//            .receive(on: RunLoop.main)
-//            .sink(
-//                receiveCompletion: { [weak host] completion in
-//                    guard case .failure(let error) = completion else { return }
-//                    let alert = UIAlertController(
-//                        title: "Failed to test keys",
-//                        message: error.localizedDescription,
-//                        preferredStyle: .alert
-//                    )
-//                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//                    host?.present(alert, animated: true, completion: nil)
-//                },
-//                receiveValue: { [weak host] collectedResult in
-//                    let tempFolder = try! FileManager().url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: Bundle.main.bundleURL, create: true)
-//                    let file = tempFolder.appendingPathComponent("\(self.device.experimentName)-\(self.device.deviceName)-result.json")
-//
-//                    let encoder = JSONEncoder()
-//                    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
-//                    encoder.dateEncodingStrategy = .iso8601
-//                    try! encoder.encode(collectedResult).write(to: file)
-//
-//                    let viewController = UIActivityViewController(activityItems: [file], applicationActivities: nil)
-//                    host?.present(viewController, animated: true, completion: nil)
-//                }
-//            )
-//        cancellables.append(cancellable)
+        let url = URL(string: "https://example.com/path/\(device.experimentName)-collected-keys.json")!
+        let cancellable = URLSession.shared
+            .dataTaskPublisher(for: url)
+            .tryMap { data, response in try JSONDecoder().decode(CollectedExperimentKeysPayload.self, from: data) }
+            .print("Server response")
+            .flatMap { collectedKeys in
+                Publishers.Sequence(sequence: collectedKeys.devices)
+            }
+            .flatMap { self.manager.exposure(to: $0, configuration: ENExposureConfiguration()) }
+            .print("Exposure")
+            .collect()
+            .map { CollectedExperimentResultsPayload(devices: $0) }
+            .receive(on: RunLoop.main)
+            .sink(
+                receiveCompletion: { [weak host] completion in
+                    guard case .failure(let error) = completion else { return }
+                    let alert = UIAlertController(
+                        title: "Failed to test keys",
+                        message: error.localizedDescription,
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    host?.present(alert, animated: true, completion: nil)
+                },
+                receiveValue: { [weak host] collectedResult in
+                    let tempFolder = try! FileManager().url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: Bundle.main.bundleURL, create: true)
+                    let file = tempFolder.appendingPathComponent("\(self.device.experimentName)-\(self.device.deviceName)-result.json")
+
+                    let encoder = JSONEncoder()
+                    encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+                    encoder.dateEncodingStrategy = .iso8601
+                    try! encoder.encode(collectedResult).write(to: file)
+
+                    let viewController = UIActivityViewController(activityItems: [file], applicationActivities: nil)
+                    host?.present(viewController, animated: true, completion: nil)
+                }
+            )
+        cancellables.append(cancellable)
     }
 }
