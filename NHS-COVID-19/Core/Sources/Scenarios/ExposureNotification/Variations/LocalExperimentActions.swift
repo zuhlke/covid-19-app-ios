@@ -76,6 +76,7 @@ class LocalExperimentActions {
     }
 
     private func detectExposureForExperiment() {
+        /*
         let url = URL(string: "https://example.com/path/\(device.experimentName)-collected-keys.json")!
         let cancellable = URLSession.shared
             .dataTaskPublisher(for: url)
@@ -114,5 +115,6 @@ class LocalExperimentActions {
                 }
             )
         cancellables.append(cancellable)
+        */
     }
 }
