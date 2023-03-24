@@ -65,6 +65,15 @@
         }
       },
       {
+        "package": "swift-custom-dump",
+        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump.git",
+        "state": {
+          "branch": null,
+          "revision": "de8ba65649e7ee317b9daf27dd5eebf34bd4be57",
+          "version": "0.9.1"
+        }
+      },
+      {
         "package": "swift-log",
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
@@ -80,6 +89,15 @@
           "branch": null,
           "revision": "0af9125c4eae12a4973fb66574c53a54962a9e1e",
           "version": "1.21.0"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "ab8c9f45843694dd16be4297e6d44c0634fd9913",
+          "version": "0.8.4"
         }
       },
       {

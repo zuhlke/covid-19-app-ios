@@ -50,12 +50,14 @@ let package = Package(
         .package(name: "RiskScore", url: "https://github.com/nihp-public/riskscore-swift-public.git", .upToNextMajor(from: "3.2.1")),
         .package(name: "Lokalise", url: "https://github.com/lokalise/lokalise-ios-framework", from: "0.9.12"),
         .package(name: "BonjourServices", url: "https://github.com/zuhlke/RemoteLogger", .branch("main")),
+        .package(url: "https://github.com/pointfreeco/swift-custom-dump.git", .upToNextMajor(from: "0.9.1"))
     ],
     targets: [
         .target(
             name: "Common",
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
+                .product(name: "CustomDump", package: "swift-custom-dump"),
             ]
         ),
         .target(
