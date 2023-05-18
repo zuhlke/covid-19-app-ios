@@ -403,9 +403,7 @@ struct ConfigureMocksView: View {
                         HStack {
                             Label(title, systemImage: systemImage)
                             Spacer()
-                            if let accessoryBadge = accessoryBadge {
-                                accessoryBadge()
-                            }
+                            accessoryBadge()
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .contentShape(Rectangle())
@@ -420,9 +418,7 @@ struct ConfigureMocksView: View {
                 Section(header: HStack {
                     Text(verbatim: title)
                     Spacer()
-                    if let accessoryBadge = accessoryBadge {
-                        accessoryBadge()
-                    }
+                    accessoryBadge()
 
                 }, content: content)
             }
