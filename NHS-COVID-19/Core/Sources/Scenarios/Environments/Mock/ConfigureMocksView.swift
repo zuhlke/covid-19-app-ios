@@ -85,6 +85,7 @@ struct ConfigureMocksView: View {
                         }
                     }
                 })
+                BonjourServicesView(remoteLoggerClient: .shared)
                 Group {
                     HStack {
                         Image(systemName: "timer")
